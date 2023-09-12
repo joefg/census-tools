@@ -1,0 +1,91 @@
+#!/usr/bin/env bash
+
+FILE="databases/data.db"
+
+MIGRATIONS="
+	CREATE TABLE IF NOT EXISTS migrations(
+		id INTEGER PRIMARY KEY AUTOINCREMENT,
+		script TEXT NOT NULL,
+		hash TEXT NOT NULL,
+		timestamp DATETIME DEFAULT CURRENT_TIMESTAMP
+	);
+"
+
+function run(){
+	local mode=$1
+
+	case $mode in
+		"help" | "h")
+			run_help ;;
+		"build" | "b")
+			run_build ;;
+		"rebuild" | "r")
+			run_rebuild ;;
+		"migrate" | "m")
+			run_migrate ;;
+		* )
+			run_help
+			exit 1 ;;
+	esac
+}
+
+function run_help(){
+	cat << EOF
+./run, helper script for building the database
+
+help:     display help message
+build:    build database and migrate
+rebuild:  drop database and rebuild
+migrate:  import all data
+EOF
+}
+
+function run_build(){
+	if [ ! -r "$FILE" ]; then
+		echo "Initialising database."
+		sqlite3 "$FILE" "$MIGRATIONS"
+		echo "Initialised database at $FILE"
+	else
+		echo "Database already exists. Aborting."
+		exit 1
+	fi
+	run_migrate
+}
+
+function run_rebuild(){
+	rm $FILE && run_build
+}
+
+function migration(){
+	local script=$1
+	local migration_test=$(sqlite3 $FILE "select script from migrations where script in ('$script')")
+	if [[ ! -n $migration_test ]]
+	then
+		bash $script $FILE && add_migration $script && echo "Done."
+	else
+		echo "Migration already done. Skipping."
+	fi
+}
+
+function add_migration(){
+	local script=$1
+	local hash=$(md5sum $1 | cut -d ' ' -f 1)
+	MIGRATION="
+	INSERT INTO migrations (script, hash)
+	VALUES (
+		'$script',
+		'$hash'
+	);
+	"
+	sqlite3 "$FILE" "$MIGRATION" 
+}
+
+function run_migrate(){
+	local imports=$(jq -r '.[]' < manifest.json)
+	while IFS= read -r line; do
+		echo "Importing: $line"
+		migration $line
+	done <<< "$imports"
+}
+
+run "$@"
