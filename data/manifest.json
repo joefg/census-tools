@@ -1,0 +1,9 @@
+[
+    "importers/TS019-2021.sh",
+    "importers/lads-2020.sh",
+    "importers/wards-2023.sh",
+    "importers/regions-2021.sh",
+    "importers/counties-2021.sh",
+    "importers/parishes-2020.sh",
+    "importers/constituencies-2022.sh"
+]

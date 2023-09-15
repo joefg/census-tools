@@ -3,6 +3,7 @@
 FILE="databases/data.db"
 
 MIGRATIONS="
+	SELECT load_extension('mod_spatialite');
 	CREATE TABLE IF NOT EXISTS migrations(
 		id INTEGER PRIMARY KEY AUTOINCREMENT,
 		script TEXT NOT NULL,
