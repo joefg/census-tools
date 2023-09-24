@@ -7,5 +7,6 @@
     "importers/parishes-2020.sh",
     "importers/constituencies-2022.sh",
     "importers/lsoas-2021.sh",
-    "importers/msoas-2021.sh"
+    "importers/msoas-2021.sh",
+    "importers/pfas-2021.sh"
 ]
