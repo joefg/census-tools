@@ -6,7 +6,6 @@
     "importers/counties-2021.sh",
     "importers/parishes-2020.sh",
     "importers/constituencies-2022.sh",
-    "importers/output-areas-2021.sh",
     "importers/lsoas-2021.sh",
     "importers/msoas-2021.sh"
 ]
