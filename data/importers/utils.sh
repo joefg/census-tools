@@ -11,3 +11,11 @@ function reproject_shp(){
 
 	echo "$(dirname $new_shape)/$(basename $new_shape .shp)"
 }
+
+function add_indexes(){
+	local database=$1
+	local table=$2
+
+	echo "SELECT CreateSpatialIndex('${table}', 'geometry');"
+
+}
