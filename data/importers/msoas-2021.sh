@@ -13,6 +13,8 @@ function add_msoas(){
 	local converted=$(reproject_shp "build/msoa-21/MSOA_2021_EW_BGC_V2.shp" "EPSG:4326")
 	spatialite_tool -i -shp "${converted}" -d "$database" \
 		-t "msoa_21" -g geometry -c utf-8 -s 4326
+
+	add_indexes "$database" "msoa_21" | spatialite $database
 }
 
 add_msoas $1
