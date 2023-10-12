@@ -13,6 +13,8 @@ function add_parishes(){
 	local converted=$(reproject_shp "build/parishes-20/PAR_DEC_2020_EW_BGC_V2.shp" "EPSG:4326")
 	spatialite_tool -i -shp "${converted}" -d "$database" \
 		-t "parishes_20" -g geometry -c utf-8 -s 4326
+
+	add_indexes "$database" "parishes_20" | spatialite $database
 }
 
 add_parishes $1
