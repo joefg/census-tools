@@ -13,6 +13,8 @@ function add_lsoas(){
 	local converted=$(reproject_shp "build/lsoa-21/LSOA_2021_EW_BGC_V3.shp" "EPSG:4326")
 	spatialite_tool -i -shp "${converted}" -d "$database" \
 		-t "lsoa_21" -g geometry -c utf-8 -s 4326
+
+	add_indexes "$database" "lsoa_21" | spatialite $database
 }
 
 add_lsoas $1
