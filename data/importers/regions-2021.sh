@@ -13,6 +13,8 @@ function add_regions(){
 	local converted=$(reproject_shp "build/regions-21/RGN_DEC_2021_EN_BGC.shp" "EPSG:4326")
 	spatialite_tool -i -shp "${converted}" -d "$database" \
 		-t "regions_21" -g geometry -c utf-8 -s 4326
+
+	add_indexes "$database" "regions_21" | spatialite $database
 }
 
 add_regions $1
