@@ -13,6 +13,8 @@ function add_pfas(){
 	local converted=$(reproject_shp "build/pfa-21/PFA_DEC_2021_EW_BGC.shp" "EPSG:4326")
 	spatialite_tool -i -shp "${converted}" -d "$database" \
 		-t "pfa_21" -g geometry -c utf-8 -s 4326
+
+	add_indexes "$database" "pfa_21" | spatialite $database
 }
 
 add_pfas $1
