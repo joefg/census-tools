@@ -13,6 +13,8 @@ function add_counties(){
 	local converted=$(reproject_shp "build/counties-21/CTY_MAY_2021_EN_BGC.shp" "EPSG:4326")
 	spatialite_tool -i -shp "${converted}" -d "$database" \
 		-t "counties_21" -g geometry -c utf-8 -s 4326
+
+	add_indexes "$database" "counties_21" | spatialite $database
 }
 
 add_counties $1
