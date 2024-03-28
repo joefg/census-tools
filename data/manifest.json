@@ -1,5 +1,6 @@
 [
     "importers/lads-2020.sh",
+    "importers/lads-2021.sh",
     "importers/wards-2023.sh",
     "importers/regions-2021.sh",
     "importers/counties-2021.sh",
