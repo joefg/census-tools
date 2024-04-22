@@ -16,6 +16,8 @@ class SpatialiteConnection():
             self.conn = sqlite3.connect(os.path.join(location))
         else:
             self.conn = sqlite3.connect(':memory:')
+        self.conn.row_factory = lambda cursor, result: \
+            dict(zip([column[0] for column in cursor.description], result))
         self.conn.enable_load_extension(True)
         self.conn.execute('SELECT load_extension("mod_spatialite")')
         self.conn.execute('SELECT InitSpatialMetaData(1);')
