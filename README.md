@@ -3,7 +3,14 @@
 Simple tools with which to analyse, interpret, and visualise British census
 data.
 
-## Using this with QGIS
+## Notebook
+
+A runfile is provided for your convenience.
+
+`./run restore` fetches all dependencies and `./run dev` spawns a Jupyter
+notebook server.
+
+## Data
 
 cd to `data/`, then:
 
