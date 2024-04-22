@@ -1,0 +1,69 @@
+#!/usr/bin/env bash
+
+set -euo pipefail
+THISDIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+
+function help(){
+cat << EOF
+census-tools
+
+help        : Display help text
+restore     : Fetch dependencies
+dev         : Spawn a notebook server
+lint        : Lint codebase
+unit        : Run unit tests
+integration : Run integration tests
+EOF
+}
+
+function run_restore(){
+	pipenv install
+}
+
+function run_dev(){
+	pipenv run jupyter lab
+}
+
+function run_lint(){
+	pipenv run mypy "$THISDIR"/census_tools/
+	pipenv run pylint "$THISDIR"/census_tools/
+}
+
+function run_unit(){
+	pipenv run pytest
+}
+
+function run_integration(){
+	echo "Not implemented."
+}
+
+function main(){
+cmd=${1-default}
+	shift || true
+	case "$cmd" in
+		help)
+			help "$@"
+			;;
+		restore)
+			run_restore
+			;;
+		dev)
+			run_dev
+			;;
+		lint)
+			run_lint
+			;;
+		unit)
+			run_unit
+			;;
+		integration)
+			run_integration
+			;;
+		*)
+			echo "no-op $cmd"
+			;;
+	esac
+}
+
+main "$@"
+
