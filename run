@@ -17,7 +17,7 @@ EOF
 }
 
 function run_restore(){
-	pipenv install
+	pipenv install --dev
 }
 
 function run_dev(){
