@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-FILE=${DB_LOCATION:-"databases/census-tools.db"}
+FILE=${DB_LOCATION:-"databases/census-tools.sqlite3"}
 
 MIGRATIONS="
 	SELECT load_extension('mod_spatialite');
