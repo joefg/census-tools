@@ -5,6 +5,8 @@ name = "pypi"
 
 [packages]
 jupyter = "*"
+geopandas = "*"
+plotly = "*"
 
 [dev-packages]
 pytest = "*"
