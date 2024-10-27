@@ -44,3 +44,16 @@ geo_frame.join(data_frame, on="<common-key>")
 
 JupyterLab is a bit slow to render Plotly inline JavaScript. If it's a problem
 use old Jupyter Notebook.
+
+## Theming
+
+### Watermark
+
+Adding a DRAFT watermark is easy with the provided `census_tools.templates` helper package.
+
+Just add it with:
+
+```python
+import census_tools.templates
+figure.update_layout(template = census_tools.templates.watermark("DRAFT"))
+```
