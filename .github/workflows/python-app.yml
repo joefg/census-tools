@@ -25,6 +25,9 @@ jobs:
         with:
           python-version-file: "pyproject.toml"
 
+      - name: "Install mod_spatialite"
+        run: sudo apt install -y libsqlite3-mod-spatialite
+
       - name: "Install dependencies"
         run: ./run restore
 
