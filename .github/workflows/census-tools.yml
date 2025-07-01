@@ -11,7 +11,7 @@ permissions:
 
 jobs:
   build:
-    name: python
+    name: census-tools
     runs-on: ubuntu-latest
 
     steps:
