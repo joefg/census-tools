@@ -12,33 +12,28 @@ restore     : Fetch dependencies
 dev         : Spawn a notebook server
 lint        : Lint codebase
 unit        : Run unit tests
-integration : Run integration tests
 EOF
 }
 
 function run_restore(){
-	pipenv install --dev
+	uv sync
 }
 
 function run_dev(){
-	pipenv run jupyter lab
+	uv run jupyter lab
 }
 
 function run_lint(){
-	pipenv run mypy "$THISDIR"/census_tools/
-	pipenv run pylint "$THISDIR"/census_tools/
+	uv run mypy "$THISDIR"/census_tools/
+	uv run pylint "$THISDIR"/census_tools/
 }
 
 function run_unit(){
-	pipenv run pytest
-}
-
-function run_integration(){
-	echo "Not implemented."
+	uv run pytest
 }
 
 function main(){
-cmd=${1-default}
+	cmd=${1-default}
 	shift || true
 	case "$cmd" in
 		help)
@@ -55,9 +50,6 @@ cmd=${1-default}
 			;;
 		unit)
 			run_unit
-			;;
-		integration)
-			run_integration
 			;;
 		*)
 			echo "no-op $cmd"
