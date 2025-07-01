@@ -14,7 +14,9 @@ notebook server, containing `geopandas` and `plotly` packages.
 
 `cd` to `data/`, then:
 
-1. Make sure you have `sqlite`, `ogr2ogr`, and `spatialite` installed.
+1. Make sure you have `sqlite`, `ogr2ogr`, and `spatialite` installed. You will
+need the `libsqlite3-mod-spatialite` package-- it's in Debian and Arch Linux
+repositories.
 
 2. Download your data into `downloads/`.
 
